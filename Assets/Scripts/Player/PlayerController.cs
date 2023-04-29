@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     public float verticalMaxSpeed = 10f;
     public float horizontalMaxSpeed = 10f;
+    public float swimUpDownDrag = 1f;
+    public float horizonDrag = 0.9f;
 
     private Rigidbody myRigidbody;
     void Awake () {
@@ -21,8 +23,11 @@ public class PlayerController : MonoBehaviour
     private void Update() {
         
     }
-    private void FixedUpdate() { 
-        if(Input.GetButton("SwimUp")) {
+    private void FixedUpdate() {
+
+        transform.LookAt(Camera.main.transform);
+
+        if (Input.GetButton("SwimUp")) {
             myRigidbody.AddForce(swimUpForce * Vector3.up, ForceMode.Force);
         } else if (Input.GetButton("SwimDown")) {
             myRigidbody.AddForce(swimDownForce * Vector3.down, ForceMode.Force);
@@ -30,10 +35,10 @@ public class PlayerController : MonoBehaviour
         float strafe = Input.GetAxis("Horizontal");
         float forward = Input.GetAxis("Vertical");
         if (strafe != 0f) {
-            myRigidbody.AddForce(strafe * horizontalForce * transform.right, ForceMode.Force);
+            myRigidbody.AddForce(-strafe * horizontalForce * transform.right, ForceMode.Force);
         }
         if (forward != 0f) {
-            myRigidbody.AddForce(forward * horizontalForce * transform.forward, ForceMode.Force);
+            myRigidbody.AddForce(-forward * horizontalForce * transform.forward, ForceMode.Force);
         }
 
         if (myRigidbody.velocity.y > verticalMaxSpeed) {
@@ -48,6 +53,6 @@ public class PlayerController : MonoBehaviour
         if (myRigidbody.velocity.x < -horizontalMaxSpeed) {
             myRigidbody.velocity = new Vector3(-horizontalMaxSpeed, myRigidbody.velocity.y, myRigidbody.velocity.z);
         }
-
+        myRigidbody.velocity = new Vector3(myRigidbody.velocity.x * horizonDrag, myRigidbody.velocity.y * swimUpDownDrag, myRigidbody.velocity.z * horizonDrag);
     }
 }

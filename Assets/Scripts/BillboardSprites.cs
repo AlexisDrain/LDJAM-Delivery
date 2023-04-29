@@ -8,7 +8,7 @@ using UnityEngine;
 public class BillboardSprites : MonoBehaviour
 {
     public bool yAxis = true;
-    void Update() {
+    void LateUpdate() {
         transform.LookAt(Camera.main.transform);
         if(yAxis == false) {
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0f));
