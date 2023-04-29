@@ -21,8 +21,10 @@ namespace UnityStandardAssets.Cameras
         [SerializeField] private bool m_LockCursor = false;                   // Whether the cursor should be hidden and locked.
         [SerializeField] private bool m_VerticalAutoReturn = false;           // set wether or not the vertical axis should auto return
         public bool invertY = true;
+        public Vector2 maxVerticalAngles = new Vector2(-60f, 60f);
 
         private float m_LookAngle;                    // The rig's y axis rotation.
+        private float m_LookAngleVertical;
         private float m_TiltAngle;                    // The pivot's x axis rotation.
         private const float k_LookDistance = 100f;    // How far in front of the pivot the character's look target is.
 		private Vector3 m_PivotEulers;
@@ -82,9 +84,11 @@ namespace UnityStandardAssets.Cameras
 
             // Adjust the look angle by an amount proportional to the turn speed and horizontal input.
             m_LookAngle += x*m_TurnSpeed;
+            m_LookAngleVertical += y * m_TurnSpeed;
+            m_LookAngleVertical = Mathf.Clamp(m_LookAngleVertical, maxVerticalAngles.x, maxVerticalAngles.y);
 
             // Rotate the rig (the root object) around Y axis only:
-            m_TransformTargetRot = Quaternion.Euler(0f, m_LookAngle, 0f);
+            m_TransformTargetRot = Quaternion.Euler(m_LookAngleVertical, m_LookAngle, 0f);
 
             if (m_VerticalAutoReturn)
             {
