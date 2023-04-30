@@ -305,7 +305,7 @@ TextureImporter:
         width: 11
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -313,6 +313,48 @@ TextureImporter:
       bones: []
       spriteID: 8ab588686802a8f44a3c1b4487d5aa31
       internalID: -1667738734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_9
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 59
+        width: 11
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6325a7b4256f4354db3363a261c41157
+      internalID: -717935653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_10
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 59
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50ba18b2058e3604ea65d4b524b1af97
+      internalID: 1525905685
       vertices: []
       indices: 
       edges: []
@@ -330,6 +372,7 @@ TextureImporter:
     nameFileIdTable:
       parents_0: -641797768
       parents_1: 1161492749
+      parents_10: 1525905685
       parents_2: 612172994
       parents_3: 611932124
       parents_4: 1425856572
@@ -337,6 +380,7 @@ TextureImporter:
       parents_6: -1954007558
       parents_7: -272121362
       parents_8: -1667738734
+      parents_9: -717935653
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 
         transform.LookAt(Camera.main.transform);
 
-        if(inDialogue) {
+        if(inDialogue || GameManager.babyExchangeMenu.activeSelf == true) {
             myRigidbody.velocity = new Vector3(0f,0f,0f);
             return;
         }

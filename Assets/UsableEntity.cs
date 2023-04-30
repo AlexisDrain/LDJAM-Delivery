@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,15 @@ public class UsableEntity : MonoBehaviour
     private bool enableObject = false;
 
     public string entityUseText = "Take Baby: \"Nicky\""; // Talk to: Doctor // Swap babies.
+    public GameObject currentBabyInWorld;
+    public BabyStats currentBaby;
     //public GameObject pickupEntity;
     public List<string> dialogue;
     public Color dialogueColor;
+
+    public List<string> giveBaby1;
+    public List<string> giveBaby2;
+    public List<string> giveBaby3;
 
     private bool playerInZone;
     void OnTriggerEnter(Collider col) {
@@ -28,6 +35,11 @@ public class UsableEntity : MonoBehaviour
             playerInZone = false;
             GameManager.useTutorial.SetActive(false);
         }
+    }
+    public void TakeBaby() {
+        currentBabyInWorld.SetActive(true);
+        currentBabyInWorld.GetComponent<SpriteRenderer>().sprite = currentBaby.babySprite;
+        CreateDialogue();
     }
     public void Update() {
 
@@ -48,10 +60,25 @@ public class UsableEntity : MonoBehaviour
         }
 
         // check input
-        if (progressRequired == GameManager.gameProgressCheckpoint && playerInZone == true && GameManager.playerController.inDialogue == false && Input.GetButtonDown("Use")) {
-            GameManager.playerController.inDialogueCountdown = 1f;
-            GameManager.dialogueText.color = dialogueColor;
-            GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(dialogue);
+        if (progressRequired == GameManager.gameProgressCheckpoint && playerInZone == true && GameManager.playerController.inDialogue == false
+            && GameManager.babyExchangeMenu.activeSelf == false && Input.GetButtonDown("Use")) {
+
+            CreateDialogue();
+        }
+    }
+    public void CreateDialogue() {
+        GameManager.gameManagerObj.GetComponent<GameManager>().currentDialogueParents = gameObject;
+        GameManager.playerController.inDialogueCountdown = 1f;
+        GameManager.dialogueText.color = dialogueColor;
+
+        if (currentBaby == null || currentBaby.babyName == "Blank") {
+            GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(dialogue, gameObject);
+        } else if (currentBaby.babyName == giveBaby1[0]) {
+            GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(giveBaby1, gameObject);
+        } else if (currentBaby.babyName == giveBaby2[0]) {
+            GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(giveBaby2, gameObject);
+        } else if (currentBaby.babyName != null) {
+            GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(giveBaby3, gameObject);
         }
     }
 }

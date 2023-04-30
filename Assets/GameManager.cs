@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityStandardAssets.Cameras;
 /*
 * Author: Alexis Clay Drain
 */
 public class GameManager : MonoBehaviour
 {
     public static GameObject gameManagerObj;
+    public static FreeLookCam freeLookCam;
+    
+    public static GameObject babyExchangeMenu;
+    public static GameObject babyExchangeGrid;
     public static GameObject babyGrid;
-    public static GameObject journal;
+    //public static GameObject journal;
     public static GameObject useTutorial;
     public static Text useTutorialText;
     public static GameObject exitJournalTutorial;
@@ -18,9 +23,14 @@ public class GameManager : MonoBehaviour
     public static GameObject dialogueTextObj;
     public static Text dialogueText;
 
-    public List<GameObject> babyInventory = new List<GameObject>();
-    public GameObject babyColette;
+    public List<BabyStats> babyInventory = new List<BabyStats>();
+    public BabyStats babyBlank;
+    public BabyStats babyColette;
+    public BabyStats babyNicky;
+    public BabyStats babyBoyone;
+    public GameObject babyUI;
 
+    public GameObject currentDialogueParents;
     public List<string> currentDialogue;
 
     public static int gameProgressCheckpoint = 0;
@@ -35,11 +45,14 @@ public class GameManager : MonoBehaviour
 
     void Awake() {
         gameManagerObj = gameObject;
+        freeLookCam = GameObject.Find("FreeLookCameraRig").GetComponent<FreeLookCam>();
+        babyExchangeMenu = GameObject.Find("Canvas/BabyExchangeMenu");
+        babyExchangeGrid = GameObject.Find("Canvas/BabyExchangeMenu/BabyExchangeGrid");
         babyGrid = GameObject.Find("Canvas/BabyGrid");
         useTutorial = GameObject.Find("Canvas/Use");
         useTutorialText = useTutorial.transform.Find("Use/Desc").GetComponent<Text>();
         exitJournalTutorial = GameObject.Find("Canvas/ExitJournal");
-        journal = GameObject.Find("Canvas/Journal");
+        //journal = GameObject.Find("Canvas/Journal");
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         dialogueTextObj = GameObject.Find("Canvas/Dialogue");
         dialogueText = GameObject.Find("Canvas/Dialogue").GetComponent<Text>();
@@ -47,19 +60,57 @@ public class GameManager : MonoBehaviour
     private void Start() {
         useTutorial.SetActive(false);
         exitJournalTutorial.SetActive(false);
-        journal.SetActive(false);
+        babyExchangeMenu.SetActive(false);
+        //journal.SetActive(false);
 
         dialogueTextObj.SetActive(false);
         dialogueText.text = "";
     }
-    public void CreateDialogue(List<string> newDialogue) {
+    
+    public void Update() {
+        if (babyExchangeMenu.activeSelf == true && Input.GetKeyDown(KeyCode.Escape)) {
+            CloseBabyExchange();
+        }
+        //if(Input.GetKeyDown(KeyCode.F2)) {
+        //    Screen.fullScreen = !Screen.fullScreen;
+       // }
+    }
+    
+    public void ShowBabyExchange() {
+        freeLookCam.enabled = false;
+        babyExchangeMenu.SetActive(true);
+    }
+    public void CloseBabyExchange() {
+        freeLookCam.enabled = true;
+        babyExchangeMenu.SetActive(false);
+    }
+
+    public void CreateDialogue(List<string> newDialogue, GameObject dialogueParents) {
+        currentDialogueParents = dialogueParents;
         currentDialogueMessage = 0;
         playerController.inDialogue = true;
         currentDialogue = newDialogue;
 
         dialogueTextObj.SetActive(true);
         GameManager.dialogueText.text = currentDialogue[0];
-    }
+        switch (GameManager.dialogueText.text) {
+                case "Colette":
+                AdvanceDialogue();
+                break;
+                case "Nicky":
+                AdvanceDialogue();
+                break;
+                case "Boy One":
+                AdvanceDialogue();
+                break;
+                case "Any":
+                AdvanceDialogue();
+                break;
+                case "Blank":
+                AdvanceDialogue();
+                break;
+            }
+        }
     public void AdvanceDialogue() {
         currentDialogueMessage += 1;
 
@@ -68,19 +119,25 @@ public class GameManager : MonoBehaviour
             dialogueTextObj.SetActive(false);
             playerController.inDialogue = false;
         } else {
+            // ALEXIS - Execute dialogue functions here
             switch (currentDialogue[currentDialogueMessage]) {
                 case "-pu colette":
                 // code block
-                babyInventory.Add(babyColette);
-                babyColette.GetComponent<BabyStats>().PutInUI();
+                var baby = Instantiate(babyColette);
+                babyInventory.Add(baby);
+                baby.PutInUI();
                 AdvanceDialogue();
                 break;
                 case "-pu nicky":
-                babyInventory.Add(babyColette);
+                var baby2 = Instantiate(babyNicky);
+                babyInventory.Add(baby2);
+                baby2.PutInUI();
                 AdvanceDialogue();
                 break;
                 case "-pu boyone":
-                babyInventory.Add(babyColette);
+                var baby3 = Instantiate(babyBoyone);
+                babyInventory.Add(baby3);
+                baby3.PutInUI();
                 AdvanceDialogue();
                 break;
                 case "-set 1":
@@ -98,6 +155,9 @@ public class GameManager : MonoBehaviour
                 case "-set 4":
                 GameManager.gameProgressCheckpoint = 4;
                 AdvanceDialogue();
+                break;
+                case "-baby-exchange":
+                ShowBabyExchange();
                 break;
                 case "-restart game":
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
