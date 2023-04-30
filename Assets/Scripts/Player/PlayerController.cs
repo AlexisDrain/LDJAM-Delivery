@@ -5,8 +5,8 @@ using UnityEngine;
 /*
 * Author: Alexis Clay Drain
 */
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
+    [Header("Move stats")]
     public float swimUpForce = 10f;
     public float swimDownForce = 10f;
     public float horizontalForce = 10f;
@@ -16,16 +16,33 @@ public class PlayerController : MonoBehaviour
     public float swimUpDownDrag = 1f;
     public float horizonDrag = 0.9f;
 
+    [Header("Checks")]
+    public bool inDialogue = false;
+    public float inDialogueCountdown = 0f;
+
     private Rigidbody myRigidbody;
     void Awake () {
         myRigidbody= GetComponent<Rigidbody>();
     }
     private void Update() {
-        
+        if(inDialogueCountdown > 0) {
+            inDialogueCountdown -= 0.1f;
+            return;
+        }
+        if(inDialogue) {
+            if(Input.GetButtonDown("Use")) {
+                GameManager.gameManagerObj.GetComponent<GameManager>().AdvanceDialogue();
+            }
+        }
     }
     private void FixedUpdate() {
 
         transform.LookAt(Camera.main.transform);
+
+        if(inDialogue) {
+            myRigidbody.velocity = new Vector3(0f,0f,0f);
+            return;
+        }
 
         if (Input.GetButton("SwimUp")) {
             myRigidbody.AddForce(swimUpForce * Vector3.up, ForceMode.Force);

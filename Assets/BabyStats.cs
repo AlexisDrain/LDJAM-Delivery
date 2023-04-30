@@ -10,8 +10,8 @@ public class BabyStats : MonoBehaviour
 
     public string babyName;
     public string babyGender;
-    public string babySprite;
-    public string babyUIImage;
+    public Sprite babySprite;
+    public Sprite babyUIImage;
     void Start() {
         
     }
