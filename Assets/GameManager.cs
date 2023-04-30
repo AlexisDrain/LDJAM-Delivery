@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 /*
 * Author: Alexis Clay Drain
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameObject gameManagerObj;
+    public static GameObject babyGrid;
     public static GameObject journal;
     public static GameObject useTutorial;
     public static Text useTutorialText;
@@ -17,12 +19,23 @@ public class GameManager : MonoBehaviour
     public static Text dialogueText;
 
     public List<GameObject> babyInventory = new List<GameObject>();
+    public GameObject babyColette;
+
     public List<string> currentDialogue;
+
+    public static int gameProgressCheckpoint = 0;
+    /* gameProgressCheckpoint = 0 - have not talked to the doctor - get new babies
+     * 1 - talked to the doctor but still have babies
+     * 2- talked to the doctor after delivering babies - get new babies
+     * 3- talked to the doctor but still have babies
+     * 4- finish game
+     */
 
     private int currentDialogueMessage = 0;
 
     void Awake() {
         gameManagerObj = gameObject;
+        babyGrid = GameObject.Find("Canvas/BabyGrid");
         useTutorial = GameObject.Find("Canvas/Use");
         useTutorialText = useTutorial.transform.Find("Use/Desc").GetComponent<Text>();
         exitJournalTutorial = GameObject.Find("Canvas/ExitJournal");
@@ -55,7 +68,47 @@ public class GameManager : MonoBehaviour
             dialogueTextObj.SetActive(false);
             playerController.inDialogue = false;
         } else {
-            GameManager.dialogueText.text = currentDialogue[currentDialogueMessage];
+            switch (currentDialogue[currentDialogueMessage]) {
+                case "-pu colette":
+                // code block
+                babyInventory.Add(babyColette);
+                babyColette.GetComponent<BabyStats>().PutInUI();
+                AdvanceDialogue();
+                break;
+                case "-pu nicky":
+                babyInventory.Add(babyColette);
+                AdvanceDialogue();
+                break;
+                case "-pu boyone":
+                babyInventory.Add(babyColette);
+                AdvanceDialogue();
+                break;
+                case "-set 1":
+                GameManager.gameProgressCheckpoint = 1;
+                AdvanceDialogue();
+                break;
+                case "-set 2":
+                GameManager.gameProgressCheckpoint = 2;
+                AdvanceDialogue();
+                break;
+                case "-set 3":
+                GameManager.gameProgressCheckpoint = 3;
+                AdvanceDialogue();
+                break;
+                case "-set 4":
+                GameManager.gameProgressCheckpoint = 4;
+                AdvanceDialogue();
+                break;
+                case "-restart game":
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                AdvanceDialogue();
+                break;
+                // say dialogue
+                default:
+                GameManager.dialogueText.text = currentDialogue[currentDialogueMessage];
+                break;
+            }
+            
         }
     }
 }

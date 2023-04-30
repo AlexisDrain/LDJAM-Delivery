@@ -11,8 +11,8 @@ public class BabyStats : MonoBehaviour
     public string babyName;
     public string babyGender;
     public Sprite babySprite;
-    public Sprite babyUIImage;
-    void Start() {
-        
+    public GameObject babyUI;
+    public void PutInUI() {
+        GameObject baby = GameObject.Instantiate(babyUI, GameManager.babyGrid.transform);
     }
 }
