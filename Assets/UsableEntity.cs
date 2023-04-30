@@ -21,6 +21,7 @@ public class UsableEntity : MonoBehaviour
     public List<string> giveBaby1;
     public List<string> giveBaby2;
     public List<string> giveBaby3;
+    public List<string> takeBackBabyDialogue;
 
     private bool playerInZone;
     void OnTriggerEnter(Collider col) {
@@ -28,18 +29,43 @@ public class UsableEntity : MonoBehaviour
             playerInZone = true;
             GameManager.useTutorial.SetActive(true);
             GameManager.useTutorialText.text = entityUseText;
+
+            if (currentBaby != null && currentBaby.babyName != "Blank") {
+                GameManager.takeBabyTutorial.SetActive(true);
+            }
         }
     }
     private void OnTriggerExit(Collider col) {
         if (col.gameObject.CompareTag("Player")) {
             playerInZone = false;
             GameManager.useTutorial.SetActive(false);
+            GameManager.takeBabyTutorial.SetActive(false);
         }
     }
-    public void TakeBaby() {
+    public void ParentTakeBaby() {
         currentBabyInWorld.SetActive(true);
         currentBabyInWorld.GetComponent<SpriteRenderer>().sprite = currentBaby.babySprite;
+        GameManager.gameManagerObj.GetComponent<GameManager>().babyInventory.RemoveAll(x=>x.babyName==currentBaby.babyName);
+        Destroy(GameManager.babyExchangeGrid.transform.Find(currentBaby.babyName).gameObject);
+        Destroy(GameManager.babyGrid.transform.Find(currentBaby.babyName).gameObject);
         CreateDialogue();
+        OnTriggerEnter(GameManager.playerController.GetComponent<Collider>()); // to see dialogue options again
+    }
+    public void PlayerTakeBaby() {
+
+        var baby = Instantiate(currentBaby);
+        baby.PutInUI();
+        GameManager.gameManagerObj.GetComponent<GameManager>().babyInventory.Add(baby);
+        currentBabyInWorld.SetActive(false);
+        currentBaby = GameManager.gameManagerObj.GetComponent<GameManager>().babyBlank;
+
+        // dialogue
+        GameManager.gameManagerObj.GetComponent<GameManager>().currentDialogueParents = gameObject;
+        GameManager.playerController.inDialogueCountdown = 1f;
+        GameManager.dialogueText.color = dialogueColor;
+        GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(takeBackBabyDialogue, gameObject);
+        OnTriggerEnter(GameManager.playerController.GetComponent<Collider>()); // to see dialogue options again
+
     }
     public void Update() {
 
@@ -60,10 +86,13 @@ public class UsableEntity : MonoBehaviour
         }
 
         // check input
-        if (progressRequired == GameManager.gameProgressCheckpoint && playerInZone == true && GameManager.playerController.inDialogue == false
-            && GameManager.babyExchangeMenu.activeSelf == false && Input.GetButtonDown("Use")) {
-
-            CreateDialogue();
+        if (GameManager.gameProgressCheckpoint  >= progressRequired && playerInZone == true && GameManager.playerController.inDialogue == false
+            && GameManager.babyExchangeMenu.activeSelf == false) {
+            if(Input.GetButtonDown("Use")) {
+                CreateDialogue();
+            } else if(Input.GetButtonDown("TakeBaby") && currentBaby != null && currentBaby.babyName != "Blank") {
+                PlayerTakeBaby();
+            }
         }
     }
     public void CreateDialogue() {

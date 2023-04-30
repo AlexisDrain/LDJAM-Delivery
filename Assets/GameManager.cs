@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     //public static GameObject journal;
     public static GameObject useTutorial;
     public static Text useTutorialText;
+    public static GameObject takeBabyTutorial;
     public static GameObject exitJournalTutorial;
     public static PlayerController playerController;
     public static GameObject dialogueTextObj;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         babyGrid = GameObject.Find("Canvas/BabyGrid");
         useTutorial = GameObject.Find("Canvas/Use");
         useTutorialText = useTutorial.transform.Find("Use/Desc").GetComponent<Text>();
+        takeBabyTutorial = GameObject.Find("Canvas/TakeBackBaby");
         exitJournalTutorial = GameObject.Find("Canvas/ExitJournal");
         //journal = GameObject.Find("Canvas/Journal");
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start() {
         useTutorial.SetActive(false);
+        takeBabyTutorial.SetActive(false);
         exitJournalTutorial.SetActive(false);
         babyExchangeMenu.SetActive(false);
         //journal.SetActive(false);

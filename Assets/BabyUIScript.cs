@@ -11,7 +11,7 @@ public class BabyUIScript : MonoBehaviour
     public void GiveChild() {
         GameObject parents = GameManager.gameManagerObj.GetComponent<GameManager>().currentDialogueParents;
         parents.GetComponent<UsableEntity>().currentBaby = Instantiate(myBabyStats);
-        parents.GetComponent<UsableEntity>().TakeBaby();
+        parents.GetComponent<UsableEntity>().ParentTakeBaby();
         GameManager.gameManagerObj.GetComponent<GameManager>().CloseBabyExchange();
     }
 
