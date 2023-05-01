@@ -193,6 +193,7 @@ MonoBehaviour:
   exactProgressRequired: -1
   minimumProgress: 1
   advanceDialogueIfInventoryEmpty: 0
+  parentName: Colette Parents
   entityUseText: 'Talk to: Couple'
   currentBabyInWorld: {fileID: 772693549275093048}
   currentBaby: {fileID: 11400000, guid: 5dbf1a0c641aed54a96ca8196ca6c9f2, type: 2}
@@ -228,8 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sucessfulNames:
-  - Boy One
-  medalName: Boy One's Parents
+  - Colette
+  - Nicky
+  medalName: Colette's Parents
 --- !u!1 &1338276570210222168
 GameObject:
   m_ObjectHideFlags: 0

@@ -389,7 +389,7 @@ TextureImporter:
         width: 11
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -410,7 +410,7 @@ TextureImporter:
         width: 11
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -418,6 +418,174 @@ TextureImporter:
       bones: []
       spriteID: 72e489afd656ae04fbb36d52ede16913
       internalID: -1777161869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_14
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 61
+        width: 10
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28993e6ea27f84f49b0f2faa37062e01
+      internalID: -1608150458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_15
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 23
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22a3ea52b541111489cdfe0797f9ce46
+      internalID: 1848784904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_16
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 23
+        width: 11
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1f5019830263bc4598a933875afb48c
+      internalID: -1441206167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_17
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 24
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2310d3bba8d45a4192df69b72fbcbda
+      internalID: -1543367738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_18
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 24
+        width: 11
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cac09acfa8c71f141b96db1778853c71
+      internalID: 515369924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_19
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 57
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c838eea9506c1824c988736dfac7b473
+      internalID: -1350145366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_20
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 95
+        width: 11
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fab4f62a4ad247428e8472bee54f183
+      internalID: -1900857445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parents_21
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 95
+        width: 11
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 668e4b83623b783438567d2ba2312d37
+      internalID: -933472443
       vertices: []
       indices: 
       edges: []
@@ -439,7 +607,15 @@ TextureImporter:
       parents_11: 1851276602
       parents_12: -814273126
       parents_13: -1777161869
+      parents_14: -1608150458
+      parents_15: 1848784904
+      parents_16: -1441206167
+      parents_17: -1543367738
+      parents_18: 515369924
+      parents_19: -1350145366
       parents_2: 612172994
+      parents_20: -1900857445
+      parents_21: -933472443
       parents_3: 611932124
       parents_4: 1425856572
       parents_5: -432372880

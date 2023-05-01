@@ -13,6 +13,7 @@ public class UsableEntity : MonoBehaviour
     public bool advanceDialogueIfInventoryEmpty = false;
     private bool enableObject = false;
 
+    public string parentName;
     public string entityUseText = "Take Baby: \"Nicky\""; // Talk to: Doctor // Swap babies.
     public GameObject currentBabyInWorld;
     public BabyStats currentBaby;
@@ -54,9 +55,35 @@ public class UsableEntity : MonoBehaviour
         CreateDialogue();
         OnTriggerEnter(GameManager.playerController.GetComponent<Collider>()); // to see dialogue options again
 
+        // update final score
+        if(currentBaby.babyName == "Colette") {
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyColetteScore.parentName = parentName;
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyColetteScore.UpdateScore();
+        } else if (currentBaby.babyName == "Nicky") {
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyNickyScore.parentName = parentName;
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyNickyScore.UpdateScore();
+        } else if (currentBaby.babyName == "Boy One") {
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyBoyoneScore.parentName = parentName;
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyBoyoneScore.UpdateScore();
+        } else if (currentBaby.babyName == "Lush") {
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyLushScore.parentName = parentName;
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyLushScore.UpdateScore();
+        } else if (currentBaby.babyName == "Jacob") {
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyJacobScore.parentName = parentName;
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyJacobScore.UpdateScore();
+        } else if (currentBaby.babyName == "Radish") {
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyRadishScore.parentName = parentName;
+            GameManager.gameManagerObj.GetComponent<GameManager>().babyRadishScore.UpdateScore();
+        } else
+
+
         // check empty journal entry
         if (GameManager.gameManagerObj.GetComponent<GameManager>().babyInventory.Count == 0 && GameManager.gameProgressCheckpoint == 1) {
             GameManager.journalEntries.AddEntry("-I have delivered all babies. I should come back to the hospital to get more.\n", "ReturnToHospital1");
+            GameManager.playerController.mySpriteRenderBabies.enabled = false;
+            GameManager.playerController.mySpriteRenderNoBabies.enabled = true;
+        } else if (GameManager.gameManagerObj.GetComponent<GameManager>().babyInventory.Count == 0 && GameManager.gameProgressCheckpoint == 2) {
+            GameManager.journalEntries.AddEntry("-I have delivered all babies. I should come back to the hospital to finish the game and get my score!\n", "ReturnToHospital2");
             GameManager.playerController.mySpriteRenderBabies.enabled = false;
             GameManager.playerController.mySpriteRenderNoBabies.enabled = true;
         }

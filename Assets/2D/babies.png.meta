@@ -263,7 +263,7 @@ TextureImporter:
         width: 9
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -271,6 +271,48 @@ TextureImporter:
       bones: []
       spriteID: 5c5380f2e684dc149b4c002fcd352bb1
       internalID: 1292790670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babies_7
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 52
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebb2bf08b3029e4d897ec5b5e05b98d
+      internalID: -844179718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babies_8
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 40
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c8ea15d37d874f4d9b0426821368ca3
+      internalID: 1847329509
       vertices: []
       indices: 
       edges: []
@@ -293,6 +335,8 @@ TextureImporter:
       babies_4: -2050297952
       babies_5: 172618253
       babies_6: 1292790670
+      babies_7: -844179718
+      babies_8: 1847329509
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

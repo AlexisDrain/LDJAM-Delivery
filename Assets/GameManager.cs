@@ -23,16 +23,28 @@ public class GameManager : MonoBehaviour
     public static GameObject takeBabyTutorial;
     public static GameObject exitJournalTutorial;
     public static GameObject newJournalTutorial;
+    public static GameObject babyEnding;
     public static PlayerController playerController;
     public static GameObject dialogueTextObj;
     public static Text dialogueText;
 
     public List<BabyStats> babyInventory = new List<BabyStats>();
+    [Header("Baby Objects")]
     public BabyStats babyBlank;
     public BabyStats babyColette;
     public BabyStats babyNicky;
     public BabyStats babyBoyone;
+    public BabyStats babyRadish;
+    public BabyStats babyLush;
+    public BabyStats babyJacob;
     public GameObject babyUI;
+    [Header("Baby Final Parent")]
+    public EndingScore babyColetteScore;
+    public EndingScore babyNickyScore;
+    public EndingScore babyBoyoneScore;
+    public EndingScore babyRadishScore;
+    public EndingScore babyLushScore;
+    public EndingScore babyJacobScore;
 
     public GameObject currentDialogueParents;
     public List<string> currentDialogue;
@@ -65,6 +77,7 @@ public class GameManager : MonoBehaviour
         newJournalTutorial = GameObject.Find("Canvas/NewJournalEntry");
         journal = GameObject.Find("Canvas/Journal");
         journalEntries = journal.transform.Find("JournalText").GetComponent<JournalEntries>();
+        babyEnding = GameObject.Find("Canvas/BabyEnding");
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         dialogueTextObj = GameObject.Find("Canvas/Dialogue");
         dialogueText = GameObject.Find("Canvas/Dialogue").GetComponent<Text>();
@@ -75,6 +88,7 @@ public class GameManager : MonoBehaviour
         exitJournalTutorial.SetActive(false);
         // newJournalTutorial.SetActive(false);
         babyExchangeMenu.SetActive(false);
+        babyEnding.SetActive(false);
         journalEntries.AddEntry("-I should speak with the Hospital's Doctor to start my job. (<color=#00FF29>Green exclamation</color> Mark).\n", "");
         journal.SetActive(false);
 
@@ -88,12 +102,23 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         freeLookCam.enabled = true;
     }
-    
+    public void FinishGame() {
+        transform.Find("Music").GetComponent<AudioSource>().PlayWebGL(creditsMusic);
+        babyEnding.SetActive(true);
+        freeLookCam.enabled = false;
+    }
+    public void RestartGame() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public void Update() {
         if (babyExchangeMenu.activeSelf == true && Input.GetKeyDown(KeyCode.Escape)) {
             CloseBabyExchange();
         }
         
+        if(Input.GetKeyDown(KeyCode.F2)) {
+            babyEnding.SetActive(!babyEnding.activeSelf);
+        }
+
         if(journal.activeSelf == true) {
             if (Input.GetButtonDown("Journal") || Input.GetButtonDown("ExitJournal")) {
                 CloseJournal();
@@ -110,9 +135,6 @@ public class GameManager : MonoBehaviour
        // }
     }
 
-    public void SwitchMusicToCredits() {
-        transform.Find("Music").GetComponent<AudioSource>().clip = creditsMusic;
-    }
 
     public void ShowJournal() {
         Time.timeScale = 0f;
@@ -163,15 +185,21 @@ public class GameManager : MonoBehaviour
                 case "Blank":
                 AdvanceDialogue();
                 break;
-            }
+            case "Lush":
+            AdvanceDialogue();
+            break;
+            case "Jacob":
+            AdvanceDialogue();
+            break;
+            case "Radish":
+            AdvanceDialogue();
+            break;
+        }
         }
     public void AdvanceDialogue() {
-        print("Advance dial");
         currentDialogueMessage += 1;
 
         if(currentDialogueMessage >= currentDialogue.Count) {
-            print("close message" +
-                "");
             GameManager.dialogueText.text = "";
             dialogueTextObj.SetActive(false);
             playerController.inDialogue = false;
@@ -197,6 +225,24 @@ public class GameManager : MonoBehaviour
                 baby3.PutInUI();
                 AdvanceDialogue();
                 break;
+                case "-pu lush":
+                var baby4 = Instantiate(babyLush);
+                babyInventory.Add(baby4);
+                baby4.PutInUI();
+                AdvanceDialogue();
+                break;
+                case "-pu radish":
+                var baby5 = Instantiate(babyRadish);
+                babyInventory.Add(baby5);
+                baby5.PutInUI();
+                AdvanceDialogue();
+                break;
+                case "-pu jacob":
+                var baby6 = Instantiate(babyJacob);
+                babyInventory.Add(baby6);
+                baby6.PutInUI();
+                AdvanceDialogue();
+                break;
                 case "-set 1":
                 GameManager.gameProgressCheckpoint = 1;
                 AdvanceDialogue();
@@ -213,23 +259,38 @@ public class GameManager : MonoBehaviour
                 GameManager.gameProgressCheckpoint = 4;
                 AdvanceDialogue();
                 break;
+                case "-endgame":
+                GameManager.gameManagerObj.GetComponent<GameManager>().FinishGame();
+                break;
                 case "-baby-exchange":
                 ShowBabyExchange();
                 break;
                 case "-journalEntries0":
-                journalEntries.AddEntry("-<color=#00a3ff>Colette</color>'s parents live on Hive & Sundance. (They are <color=#E000FF>purple</color> and <color=#00a3ff>blue</color>).\n", "");
+                journalEntries.AddEntry("-Colette's parents live on Hive & Sundance.\n", "");
                 AdvanceDialogue();
                 break;
                 case "-journalEntries1":
-                journalEntries.AddEntry("-<color=#E000FF>Nicky</color>'s parents live in a <color=#E000FF>purple</color> building on the rooftop.\n", "");
+                journalEntries.AddEntry("-Nicky's parents live on the rooftop of a purple building.\n", "");
                 AdvanceDialogue();
                 break;
                 case "-journalEntries2":
-                journalEntries.AddEntry("-<color=#ffffff>Boy One</color>'s parents are unknown, but nearby.\n", "");
+                journalEntries.AddEntry("-Boy One's parents are unknown, but nearby.\n", "");
                 AdvanceDialogue();
                 break;
                 case "-journalEntries3":
-                journalEntries.AddEntry("-<color=#E000FF>Nicky</color>'s parent wants a <color=#00a3ff>blue</color> baby. Maybe find a replacement?\n", "NickyBaby");
+                journalEntries.AddEntry("-Nicky's parent wants a blue baby. Maybe find a replacement?\n", "NickyBaby");
+                AdvanceDialogue();
+                break;
+                case "-journalEntries4":
+                journalEntries.AddEntry("-Lush's parents can be found by the puzzle \"What makes green?\"\n", "right");
+                AdvanceDialogue();
+                break;
+                case "-journalEntries5":
+                journalEntries.AddEntry("-Jacob's parents are divorced. I have to pick who gets him.\n", "right");
+                AdvanceDialogue();
+                break;
+                case "-journalEntries6":
+                journalEntries.AddEntry("-<Radish's parents are... whoever can conceive a non-binary child.\n", "right");
                 AdvanceDialogue();
                 break;
                 case "-restart game":

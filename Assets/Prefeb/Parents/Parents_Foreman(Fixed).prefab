@@ -207,8 +207,9 @@ MonoBehaviour:
   exactProgressRequired: -1
   minimumProgress: 1
   advanceDialogueIfInventoryEmpty: 0
+  parentName: Boy One Parents
   entityUseText: 'Talk: Foreman & -Tree'
-  currentBabyInWorld: {fileID: 0}
+  currentBabyInWorld: {fileID: 1349565581986645660}
   currentBaby: {fileID: 11400000, guid: 5dbf1a0c641aed54a96ca8196ca6c9f2, type: 2}
   dialogue:
   - "\u201CHi, I\u2019m Foreman and this is my wife, Minus Tree. We\u2019re looking
@@ -485,7 +486,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.5, y: 3, z: 1.5}
-  m_Center: {x: 0, y: -0.18, z: 0}
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!54 &2605589309036165127
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -615,7 +616,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.5, y: 3, z: 1.5}
-  m_Center: {x: 0, y: -0.18, z: 0}
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!54 &7649665423594313235
 Rigidbody:
   m_ObjectHideFlags: 0
