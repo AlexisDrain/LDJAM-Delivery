@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89480043}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.55, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -662,7 +662,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 30
+    angle: 0
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -805,7 +805,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 30
+      value: 0
       mode: 0
       spread: 0
       speed:
@@ -867,7 +867,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4921,7 +4921,7 @@ Animator:
   m_GameObject: {fileID: 956789435966675486}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 331125c5c9ce0794d9002ad076c79696, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6c05758eac71d9c4d8992aa7bc70e15f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5021,6 +5021,8 @@ MonoBehaviour:
   flapAudioClip: {fileID: 8300000, guid: 22f047e79a9832348a3317f35abb53c9, type: 3}
   inDialogue: 0
   inDialogueCountdown: 0
+  mySpriteRenderBabies: {fileID: 0}
+  mySpriteRenderNoBabies: {fileID: 0}
 --- !u!1 &956789436735378582
 GameObject:
   m_ObjectHideFlags: 0

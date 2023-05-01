@@ -94,11 +94,11 @@ public class PlayerController : MonoBehaviour {
             if (strafe < -0.1f) {
                 mySpriteRenderBabies.flipX = true;
                 mySpriteRenderNoBabies.flipX = true;
-                particles.rotation = Quaternion.Euler(0, 0f, 0);
+                //particles.rotation = Quaternion.Euler(0, 0f, 0);
             } else {
                 mySpriteRenderBabies.flipX = false;
                 mySpriteRenderNoBabies.flipX = false;
-                particles.rotation = Quaternion.Euler(0, 180f, 0);
+                //particles.rotation = Quaternion.Euler(0, 180f, 0);
             }
         }
         if (forward != 0f) {
