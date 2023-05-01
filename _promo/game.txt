@@ -1,10 +1,10 @@
 [Short Description]
-True story: I nearly named my dog "Boy Three"
+True story: I nearly named my dog "Boy Three"!
 
 --------------------------
 
 [Long Description]
-True story: I nearly named my dog "Boy Three" - Alexis Clay
+True story: I nearly named my dog "Boy Three"! - Alexis Clay
 
 Made in 3 days for Ludum Dare 53 Jam. Theme: "Delivery"
 
