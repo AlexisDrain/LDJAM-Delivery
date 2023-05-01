@@ -23,12 +23,18 @@ public class PlayerController : MonoBehaviour {
     public float inDialogueCountdown = 0f;
 
     private Rigidbody myRigidbody;
-    private SpriteRenderer mySpriteRender;
+    public SpriteRenderer mySpriteRenderBabies;
+    public SpriteRenderer mySpriteRenderNoBabies;
     private Transform particles;
     void Awake () {
         myRigidbody= GetComponent<Rigidbody>();
-        mySpriteRender = transform.Find("Graphic").GetComponent<SpriteRenderer>();
+        mySpriteRenderBabies = transform.Find("GraphicBabies").GetComponent<SpriteRenderer>();
+        mySpriteRenderNoBabies = transform.Find("GraphicNoBabies").GetComponent<SpriteRenderer>();
+        
         particles = transform.Find("Particles");
+
+        mySpriteRenderBabies.enabled = false;
+        mySpriteRenderNoBabies.enabled = true;
     }
     private void Update() {
         if(inDialogueCountdown > 0) {
@@ -55,6 +61,8 @@ public class PlayerController : MonoBehaviour {
             myRigidbody.AddForce(swimUpForce * Vector3.up * 1.5f, ForceMode.Impulse);
             particles.GetComponent<ParticleSystem>().Play();
             GameManager.SpawnLoudAudio(flapAudioClip);
+            mySpriteRenderNoBabies.GetComponent<Animator>().SetTrigger("FlapNoBabies");
+            mySpriteRenderBabies.GetComponent<Animator>().SetTrigger("FlapBabies");
         }
 
         if (inDialogue) {
@@ -84,10 +92,12 @@ public class PlayerController : MonoBehaviour {
             myRigidbody.AddForce(-strafe * horizontalForce * transform.right, ForceMode.Force);
 
             if (strafe < -0.1f) {
-                mySpriteRender.flipX = true;
+                mySpriteRenderBabies.flipX = true;
+                mySpriteRenderNoBabies.flipX = true;
                 particles.rotation = Quaternion.Euler(0, 0f, 0);
             } else {
-                mySpriteRender.flipX = false;
+                mySpriteRenderBabies.flipX = false;
+                mySpriteRenderNoBabies.flipX = false;
                 particles.rotation = Quaternion.Euler(0, 180f, 0);
             }
         }

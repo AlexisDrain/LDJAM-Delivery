@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         exitJournalTutorial.SetActive(false);
         // newJournalTutorial.SetActive(false);
         babyExchangeMenu.SetActive(false);
+        journalEntries.AddEntry("-I should speak with the Hospital's Doctor to start my job. (<color=#00FF29>Green exclamation</color> Mark).\n", "");
         journal.SetActive(false);
 
         dialogueTextObj.SetActive(false);
@@ -165,9 +166,12 @@ public class GameManager : MonoBehaviour
             }
         }
     public void AdvanceDialogue() {
+        print("Advance dial");
         currentDialogueMessage += 1;
 
         if(currentDialogueMessage >= currentDialogue.Count) {
+            print("close message" +
+                "");
             GameManager.dialogueText.text = "";
             dialogueTextObj.SetActive(false);
             playerController.inDialogue = false;

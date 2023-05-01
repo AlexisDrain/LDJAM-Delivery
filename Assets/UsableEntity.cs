@@ -53,6 +53,13 @@ public class UsableEntity : MonoBehaviour
         Destroy(GameManager.babyGrid.transform.Find(currentBaby.babyName).gameObject);
         CreateDialogue();
         OnTriggerEnter(GameManager.playerController.GetComponent<Collider>()); // to see dialogue options again
+
+        // check empty journal entry
+        if (GameManager.gameManagerObj.GetComponent<GameManager>().babyInventory.Count == 0 && GameManager.gameProgressCheckpoint == 1) {
+            GameManager.journalEntries.AddEntry("-I have delivered all babies. I should come back to the hospital to get more.\n", "ReturnToHospital1");
+            GameManager.playerController.mySpriteRenderBabies.enabled = false;
+            GameManager.playerController.mySpriteRenderNoBabies.enabled = true;
+        }
     }
     public void PlayerTakeBaby() {
 
@@ -68,6 +75,9 @@ public class UsableEntity : MonoBehaviour
         GameManager.dialogueText.color = dialogueColor;
         GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(takeBackBabyDialogue, gameObject);
         OnTriggerEnter(GameManager.playerController.GetComponent<Collider>()); // to see dialogue options again
+
+        GameManager.playerController.mySpriteRenderBabies.enabled = true;
+        GameManager.playerController.mySpriteRenderNoBabies.enabled = false;
 
     }
     public void Update() {
@@ -120,6 +130,7 @@ public class UsableEntity : MonoBehaviour
         }
     }
     public void CreateDialogue() {
+
         GameManager.gameManagerObj.GetComponent<GameManager>().currentDialogueParents = gameObject;
         GameManager.playerController.inDialogueCountdown = 1f;
         GameManager.dialogueText.color = dialogueColor;

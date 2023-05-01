@@ -37,6 +37,10 @@ public class BabyStats : ScriptableObject
         newBabyUIExchange.transform.Find("BabyIcon").GetComponent<Image>().sprite = babySprite;
         newBabyUIExchange.transform.Find("BabyName").GetComponent<Text>().text = babyName;
         newBabyUIExchange.transform.Find("BabyName").GetComponent<Text>().color = babyColor;
+
+
+        GameManager.playerController.mySpriteRenderBabies.enabled = true;
+        GameManager.playerController.mySpriteRenderNoBabies.enabled = false;
         /*
         GameObject baby = GameObject.Instantiate(babyUI, GameManager.babyGrid.transform);
         baby.GetComponent<Button>().enabled = false;

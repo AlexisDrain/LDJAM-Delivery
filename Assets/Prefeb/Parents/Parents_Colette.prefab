@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772693549275093048}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 1.127, z: 1.75}
+  m_LocalPosition: {x: 1.5, y: 1.127, z: 2.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -190,7 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5b66cd8da04054ea8a96d2fe2e3d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressRequired: 1
+  exactProgressRequired: -1
+  minimumProgress: 1
+  advanceDialogueIfInventoryEmpty: 0
   entityUseText: 'Talk to: Couple'
   currentBabyInWorld: {fileID: 772693549275093048}
   currentBaby: {fileID: 11400000, guid: 5dbf1a0c641aed54a96ca8196ca6c9f2, type: 2}
@@ -211,7 +213,8 @@ MonoBehaviour:
   - Any
   - '"That doesn''t seem like our baby... but okay I suppose."'
   takeBackBabyDialogue:
-  - "\u201COh\u2026 if you're sure that's not our baby then\u2026 go ahead.\u201D"
+  - "\"Oh\u2026 if you're sure that's not our baby then\u2026 go ahead.\""
+  inventoryEmptyDialogue: []
 --- !u!114 &7750181645597096097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,9 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sucessfulNames:
-  - Colette
-  - Nicky
-  medalName: Colette's Parents
+  - Boy One
+  medalName: Boy One's Parents
 --- !u!1 &1338276570210222168
 GameObject:
   m_ObjectHideFlags: 0
