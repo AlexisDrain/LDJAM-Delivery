@@ -442,7 +442,7 @@ MonoBehaviour:
   - Any
   - '"No way. My husband will doubt this is my baby... unless you''re sure?"'
   takeBackBabyDialogue:
-  - '"If you''re sure beyond a shadow of a doubt that''s not our baby..."'
+  - "\u201CI hope you're doing the right thing...\""
 --- !u!114 &6916309192909083858
 MonoBehaviour:
   m_ObjectHideFlags: 0

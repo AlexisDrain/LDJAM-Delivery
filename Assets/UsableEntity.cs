@@ -8,7 +8,9 @@ using UnityEngine;
 */
 public class UsableEntity : MonoBehaviour
 {
-    public int progressRequired = 0;
+    public int exactProgressRequired = 0;
+    public int minimumProgress = -1;
+    public bool advanceDialogueIfInventoryEmpty = false;
     private bool enableObject = false;
 
     public string entityUseText = "Take Baby: \"Nicky\""; // Talk to: Doctor // Swap babies.
@@ -22,6 +24,7 @@ public class UsableEntity : MonoBehaviour
     public List<string> giveBaby2;
     public List<string> giveBaby3;
     public List<string> takeBackBabyDialogue;
+    public List<string> inventoryEmptyDialogue;
 
     private bool playerInZone;
     void OnTriggerEnter(Collider col) {
@@ -70,11 +73,23 @@ public class UsableEntity : MonoBehaviour
     public void Update() {
 
         // enable based on progress
-        if (progressRequired == GameManager.gameProgressCheckpoint) {
-            enableObject = true;
+        // there are two variables. minimum progress. or exactProgressRequired
+        if (minimumProgress != -1) {
+            if (minimumProgress <= GameManager.gameProgressCheckpoint) {
+                enableObject = true;
+            } else {
+                enableObject = false;
+            }
         } else {
-            enableObject = false;
+            if (exactProgressRequired == GameManager.gameProgressCheckpoint) {
+                enableObject = true;
+            } else {
+                enableObject = false;
+            }
+
         }
+
+
         if (GetComponent<BoxCollider>().enabled == false && enableObject == true) {
             // enable object
             GetComponent<BoxCollider>().enabled = true;
@@ -82,11 +97,20 @@ public class UsableEntity : MonoBehaviour
         }
         if (GetComponent<BoxCollider>().enabled == true && enableObject == false) {
             GetComponent<BoxCollider>().enabled = false;
+            playerInZone = false;
             transform.GetChild(0).gameObject.SetActive(false);
         }
-
+        if(playerInZone && GameManager.playerController.inDialogue == true) {
+            GameManager.useTutorial.SetActive(false);
+            GameManager.takeBabyTutorial.SetActive(false);
+        } else if(playerInZone && GameManager.playerController.inDialogue == false) {
+            GameManager.useTutorial.SetActive(true);
+            if(currentBaby != null) {
+                GameManager.takeBabyTutorial.SetActive(true);
+            }
+        }
         // check input
-        if (GameManager.gameProgressCheckpoint  >= progressRequired && playerInZone == true && GameManager.playerController.inDialogue == false
+        if (playerInZone == true && GameManager.playerController.inDialogue == false
             && GameManager.babyExchangeMenu.activeSelf == false) {
             if(Input.GetButtonDown("Use")) {
                 CreateDialogue();
@@ -100,6 +124,12 @@ public class UsableEntity : MonoBehaviour
         GameManager.playerController.inDialogueCountdown = 1f;
         GameManager.dialogueText.color = dialogueColor;
 
+        if(advanceDialogueIfInventoryEmpty == true && GameManager.gameManagerObj.GetComponent<GameManager>().babyInventory.Count == 0) {
+            GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(inventoryEmptyDialogue, gameObject);
+            //playerInZone = false; // to reset usable entity
+            return;
+        }
+
         if (currentBaby == null || currentBaby.babyName == "Blank") {
             GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(dialogue, gameObject);
         } else if (currentBaby.babyName == giveBaby1[0]) {
@@ -109,5 +139,7 @@ public class UsableEntity : MonoBehaviour
         } else if (currentBaby.babyName != null) {
             GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(giveBaby3, gameObject);
         }
+
+        //playerInZone = false; // to reset usable entity
     }
 }

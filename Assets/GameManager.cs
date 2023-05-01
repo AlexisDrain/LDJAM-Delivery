@@ -15,11 +15,13 @@ public class GameManager : MonoBehaviour
     public static GameObject babyExchangeMenu;
     public static GameObject babyExchangeGrid;
     public static GameObject babyGrid;
-    //public static GameObject journal;
+    public static GameObject journal;
+    public static JournalEntries journalEntries;
     public static GameObject useTutorial;
     public static Text useTutorialText;
     public static GameObject takeBabyTutorial;
     public static GameObject exitJournalTutorial;
+    public static GameObject newJournalTutorial;
     public static PlayerController playerController;
     public static GameObject dialogueTextObj;
     public static Text dialogueText;
@@ -54,7 +56,9 @@ public class GameManager : MonoBehaviour
         useTutorialText = useTutorial.transform.Find("Use/Desc").GetComponent<Text>();
         takeBabyTutorial = GameObject.Find("Canvas/TakeBackBaby");
         exitJournalTutorial = GameObject.Find("Canvas/ExitJournal");
-        //journal = GameObject.Find("Canvas/Journal");
+        newJournalTutorial = GameObject.Find("Canvas/NewJournalEntry");
+        journal = GameObject.Find("Canvas/Journal");
+        journalEntries = journal.transform.Find("JournalText").GetComponent<JournalEntries>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         dialogueTextObj = GameObject.Find("Canvas/Dialogue");
         dialogueText = GameObject.Find("Canvas/Dialogue").GetComponent<Text>();
@@ -63,8 +67,9 @@ public class GameManager : MonoBehaviour
         useTutorial.SetActive(false);
         takeBabyTutorial.SetActive(false);
         exitJournalTutorial.SetActive(false);
+        newJournalTutorial.SetActive(false);
         babyExchangeMenu.SetActive(false);
-        //journal.SetActive(false);
+        journal.SetActive(false);
 
         dialogueTextObj.SetActive(false);
         dialogueText.text = "";
@@ -74,11 +79,33 @@ public class GameManager : MonoBehaviour
         if (babyExchangeMenu.activeSelf == true && Input.GetKeyDown(KeyCode.Escape)) {
             CloseBabyExchange();
         }
+        
+        if(journal.activeSelf == true) {
+            if (Input.GetButtonDown("Journal") || Input.GetButtonDown("ExitJournal")) {
+                CloseJournal();
+            }
+        } else {
+            if (Input.GetButtonDown("Journal") && playerController.inDialogue == false) {
+                ShowJournal();
+                newJournalTutorial.SetActive(false);
+            }
+        }
+
         //if(Input.GetKeyDown(KeyCode.F2)) {
         //    Screen.fullScreen = !Screen.fullScreen;
        // }
     }
-    
+
+    public void ShowJournal() {
+        freeLookCam.enabled = false;
+        exitJournalTutorial.SetActive(true);
+        journal.SetActive(true);
+    }
+    public void CloseJournal() {
+        freeLookCam.enabled = true;
+        exitJournalTutorial.SetActive(false);
+        journal.SetActive(false);
+    }
     public void ShowBabyExchange() {
         freeLookCam.enabled = false;
         babyExchangeMenu.SetActive(true);
@@ -161,6 +188,22 @@ public class GameManager : MonoBehaviour
                 break;
                 case "-baby-exchange":
                 ShowBabyExchange();
+                break;
+                case "-journalEntries0":
+                journalEntries.AddEntry("-<color=#00a3ff>Colette</color>'s parents live on Hive & Sundance. (They are <color=#E000FF>purple</color> and <color=#00a3ff>blue</color>).\n", "");
+                AdvanceDialogue();
+                break;
+                case "-journalEntries1":
+                journalEntries.AddEntry("-<color=#E000FF>Nicky</color>'s parents live in a <color=#E000FF>purple</color> building on the rooftop.\n", "");
+                AdvanceDialogue();
+                break;
+                case "-journalEntries2":
+                journalEntries.AddEntry("-<color=#ffffff>Boy One</color>'s parents are unknown, but nearby.\n", "");
+                AdvanceDialogue();
+                break;
+                case "-journalEntries3":
+                journalEntries.AddEntry("-<color=#E000FF>Nicky</color>'s parent wants a <color=#00a3ff>blue</color> baby. Maybe find a replacement?\n", "NickyBaby");
+                AdvanceDialogue();
                 break;
                 case "-restart game":
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);

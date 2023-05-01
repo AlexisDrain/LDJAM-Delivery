@@ -59,13 +59,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5b66cd8da04054ea8a96d2fe2e3d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressRequired: 1
+  exactProgressRequired: 1
+  minimumProgress: -1
+  advanceDialogueIfInventoryEmpty: 1
   entityUseText: 'Talk to: Doctor'
+  currentBabyInWorld: {fileID: 0}
+  currentBaby: {fileID: 0}
   dialogue:
   - '"If you make a mistake, that''s fine! We can always swap babies around"'
-  - "\u201CMost parents of the same color would only accept a baby of the same race.
-    Mixed parents are\u2026 more flexible, shall I say.\u201D"
+  - "\"Most parents of the same color would only accept a baby of the same race.
+    Mixed parents are\u2026 more flexible, shall I say.\""
   dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+  giveBaby1: []
+  giveBaby2: []
+  giveBaby3: []
+  takeBackBabyDialogue: []
+  inventoryEmptyDialogue:
+  - '"Good job, Sport! I mean, Stork!"'
+  - -set 2
+  - '"Find homes for these new babies!"'
 --- !u!1 &462188518
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +153,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -272121362, guid: 3eb2aa773e0bb18418de01fe6ae21c74, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.15949917, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -209,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cc45973b4793147bd694bc3479fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleFactor: 0.04
+  scaleFactor: 0.1
 --- !u!1 &605874272
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +297,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -272121362, guid: 3eb2aa773e0bb18418de01fe6ae21c74, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.15949917, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -353,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cc45973b4793147bd694bc3479fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleFactor: 0.04
+  scaleFactor: 0.1
 --- !u!1 &2742078349889108166
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,14 +425,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5b66cd8da04054ea8a96d2fe2e3d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressRequired: 0
+  exactProgressRequired: 0
+  minimumProgress: -1
+  advanceDialogueIfInventoryEmpty: 0
   entityUseText: 'Talk to: Doctor'
+  currentBabyInWorld: {fileID: 0}
+  currentBaby: {fileID: 0}
   dialogue:
   - '"So you''re the new recruit. Your job is to delivery these babies!"'
   - -pu colette
-  - '"Here''s <color=#E000FF>Colette</color>. His parents live on Hive & Sundance."'
+  - '"Here''s <color=#00a3ff>Colette</color>. His parents live on Hive & Sundance."'
   - -pu nicky
-  - '"Here''s <color=#00a3ff>Nicky</color>. Her parents live in a purple building
+  - '"Here''s <color=#E000FF>Nicky</color>. Her parents live in a purple building
     on the rooftop. Off the grid I suppose."'
   - -pu boyone
   - '"And here''s <color=#ffe9af>Boy One</color>. His parents'' names are "Undefined"...
@@ -431,6 +447,11 @@ MonoBehaviour:
     CORRECTLY. We don''t want *another* lawsuit this week."'
   - -set 1
   dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+  giveBaby1: []
+  giveBaby2: []
+  giveBaby3: []
+  takeBackBabyDialogue: []
+  inventoryEmptyDialogue: []
 --- !u!1 &4310045889369750996
 GameObject:
   m_ObjectHideFlags: 0
