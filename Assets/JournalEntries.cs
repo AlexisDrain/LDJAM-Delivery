@@ -10,7 +10,11 @@ public class JournalEntries : MonoBehaviour
 {
     public bool hasNickyBabyReplacement = false;
     public List<string> allEntries;
-    
+
+    public void Start() {
+        AddEntry("I should speak with the Hospital's Doctor to start my job. (<color=#00FF29>Green exclamation</color> Mark).\n", "");
+    }
+
     public void AddEntry(string newEntry, string special) {
         if (special == "NickyBaby") {
             if (hasNickyBabyReplacement == false) {

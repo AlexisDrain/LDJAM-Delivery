@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         useTutorial.SetActive(false);
         takeBabyTutorial.SetActive(false);
         exitJournalTutorial.SetActive(false);
-        newJournalTutorial.SetActive(false);
+        // newJournalTutorial.SetActive(false);
         babyExchangeMenu.SetActive(false);
         journal.SetActive(false);
 
@@ -97,20 +97,24 @@ public class GameManager : MonoBehaviour
     }
 
     public void ShowJournal() {
+        Time.timeScale = 0f;
         freeLookCam.enabled = false;
         exitJournalTutorial.SetActive(true);
         journal.SetActive(true);
     }
     public void CloseJournal() {
+        Time.timeScale = 1f;
         freeLookCam.enabled = true;
         exitJournalTutorial.SetActive(false);
         journal.SetActive(false);
     }
     public void ShowBabyExchange() {
+        Time.timeScale = 0f;
         freeLookCam.enabled = false;
         babyExchangeMenu.SetActive(true);
     }
     public void CloseBabyExchange() {
+        Time.timeScale = 1f;
         freeLookCam.enabled = true;
         babyExchangeMenu.SetActive(false);
     }
