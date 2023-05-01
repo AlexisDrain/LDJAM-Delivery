@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameObject gameManagerObj;
     public static FreeLookCam freeLookCam;
-    
+
+    private static Pool pool_LoudAudioSource;
     public static GameObject babyExchangeMenu;
     public static GameObject babyExchangeGrid;
     public static GameObject babyGrid;
@@ -35,6 +36,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject currentDialogueParents;
     public List<string> currentDialogue;
+    public AudioClip journalOpenSFX;
+    public AudioClip journalCloseSFX;
+    public AudioClip creditsMusic;
 
     public static int gameProgressCheckpoint = 0;
     /* gameProgressCheckpoint = 0 - have not talked to the doctor - get new babies
@@ -49,6 +53,8 @@ public class GameManager : MonoBehaviour
     void Awake() {
         gameManagerObj = gameObject;
         freeLookCam = GameObject.Find("FreeLookCameraRig").GetComponent<FreeLookCam>();
+
+        pool_LoudAudioSource = transform.Find("Pool_LoudAudioSource").GetComponent<Pool>();
         babyExchangeMenu = GameObject.Find("Canvas/BabyExchangeMenu");
         babyExchangeGrid = GameObject.Find("Canvas/BabyExchangeMenu/BabyExchangeGrid");
         babyGrid = GameObject.Find("Canvas/BabyGrid");
@@ -96,17 +102,23 @@ public class GameManager : MonoBehaviour
        // }
     }
 
+    public void SwitchMusicToCredits() {
+        transform.Find("Music").GetComponent<AudioSource>().clip = creditsMusic;
+    }
+
     public void ShowJournal() {
         Time.timeScale = 0f;
         freeLookCam.enabled = false;
         exitJournalTutorial.SetActive(true);
         journal.SetActive(true);
+        SpawnLoudAudio(journalOpenSFX);
     }
     public void CloseJournal() {
         Time.timeScale = 1f;
         freeLookCam.enabled = true;
         exitJournalTutorial.SetActive(false);
         journal.SetActive(false);
+        SpawnLoudAudio(journalCloseSFX);
     }
     public void ShowBabyExchange() {
         Time.timeScale = 0f;
@@ -220,5 +232,12 @@ public class GameManager : MonoBehaviour
             }
             
         }
+    }
+    public static AudioSource SpawnLoudAudio(AudioClip newAudioClip, float newVolume = 1f) {
+
+        AudioSource audioObject = pool_LoudAudioSource.Spawn(new Vector3(0f, 0f, 0f)).GetComponent<AudioSource>();
+        audioObject.PlayWebGL(newAudioClip, newVolume);
+        return audioObject;
+        // audio object will set itself to inactive after done playing.
     }
 }

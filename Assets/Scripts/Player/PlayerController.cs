@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 /*
 * Author: Alexis Clay Drain
@@ -15,14 +16,19 @@ public class PlayerController : MonoBehaviour {
     public float horizontalMaxSpeed = 10f;
     public float swimUpDownDrag = 1f;
     public float horizonDrag = 0.9f;
+    public AudioClip flapAudioClip;
 
     [Header("Checks")]
     public bool inDialogue = false;
     public float inDialogueCountdown = 0f;
 
     private Rigidbody myRigidbody;
+    private SpriteRenderer mySpriteRender;
+    private Transform particles;
     void Awake () {
         myRigidbody= GetComponent<Rigidbody>();
+        mySpriteRender = transform.Find("Graphic").GetComponent<SpriteRenderer>();
+        particles = transform.Find("Particles");
     }
     private void Update() {
         if(inDialogueCountdown > 0) {
@@ -30,13 +36,25 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
+        /*
+        float direction = Vector3.Dot(transform.forward, myRigidbody.velocity);
+        if(direction < -0.1f) {
+            mySpriteRender.flipX = false;
+            particles.rotation = Quaternion.Euler(0,180f,0);
+        } else {
+            mySpriteRender.flipX = true;
+            particles.rotation = Quaternion.Euler(0, 0f, 0);
+        }
+        */
         if (Input.GetButtonDown("SwimUp")) {
             //Get Forward face
             //Vector3 desiredDirection = Vector3.Normalize(new Vector3(transform.forward.x, transform.position.y, transform.forward.z));
             Vector3 dir = Camera.main.transform.forward;
 
             myRigidbody.AddForce(swimUpForce * dir, ForceMode.Impulse);
-            myRigidbody.AddForce(swimUpForce * Vector3.up, ForceMode.Impulse);
+            myRigidbody.AddForce(swimUpForce * Vector3.up * 1.5f, ForceMode.Impulse);
+            particles.GetComponent<ParticleSystem>().Play();
+            GameManager.SpawnLoudAudio(flapAudioClip);
         }
 
         if (inDialogue) {
@@ -64,6 +82,14 @@ public class PlayerController : MonoBehaviour {
         float forward = Input.GetAxis("Vertical");
         if (strafe != 0f) {
             myRigidbody.AddForce(-strafe * horizontalForce * transform.right, ForceMode.Force);
+
+            if (strafe < -0.1f) {
+                mySpriteRender.flipX = true;
+                particles.rotation = Quaternion.Euler(0, 0f, 0);
+            } else {
+                mySpriteRender.flipX = false;
+                particles.rotation = Quaternion.Euler(0, 180f, 0);
+            }
         }
         if (forward != 0f) {
             myRigidbody.AddForce(-forward * horizontalForce * transform.forward, ForceMode.Force);
