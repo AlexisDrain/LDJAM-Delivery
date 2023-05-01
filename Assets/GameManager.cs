@@ -79,6 +79,13 @@ public class GameManager : MonoBehaviour
 
         dialogueTextObj.SetActive(false);
         dialogueText.text = "";
+
+        Time.timeScale = 0f;
+        freeLookCam.enabled = false;
+    }
+    public void StartGame() {
+        Time.timeScale = 1f;
+        freeLookCam.enabled = true;
     }
     
     public void Update() {
