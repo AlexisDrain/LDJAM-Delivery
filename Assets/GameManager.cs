@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
         transform.Find("Music").GetComponent<AudioSource>().PlayWebGL(creditsMusic);
         babyEnding.SetActive(true);
         freeLookCam.enabled = false;
+        gameProgressCheckpoint = 0;
     }
     public void RestartGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -115,9 +116,9 @@ public class GameManager : MonoBehaviour
             CloseBabyExchange();
         }
         
-        if(Input.GetKeyDown(KeyCode.F2)) {
-            babyEnding.SetActive(!babyEnding.activeSelf);
-        }
+        //if(Input.GetKey(KeyCode.F2) && Input.GetKeyDown(KeyCode.F3)) {
+        //    babyEnding.SetActive(!babyEnding.activeSelf);
+        //}
 
         if(journal.activeSelf == true) {
             if (Input.GetButtonDown("Journal") || Input.GetButtonDown("ExitJournal")) {
@@ -185,24 +186,27 @@ public class GameManager : MonoBehaviour
                 case "Blank":
                 AdvanceDialogue();
                 break;
-            case "Lush":
-            AdvanceDialogue();
-            break;
-            case "Jacob":
-            AdvanceDialogue();
-            break;
-            case "Radish":
-            AdvanceDialogue();
-            break;
-        }
+                case "Lush":
+                AdvanceDialogue();
+                break;
+                case "Jacob":
+                AdvanceDialogue();
+                break;
+                case "Radish":
+                AdvanceDialogue();
+                break;
+            }
         }
     public void AdvanceDialogue() {
         currentDialogueMessage += 1;
+        //print("start dialogue");
 
-        if(currentDialogueMessage >= currentDialogue.Count) {
+        if (currentDialogueMessage >= currentDialogue.Count) {
+            //print("end dialogue");
             GameManager.dialogueText.text = "";
             dialogueTextObj.SetActive(false);
             playerController.inDialogue = false;
+            playerController.inDialogueCountdown = 1f;
         } else {
             // ALEXIS - Execute dialogue functions here
             switch (currentDialogue[currentDialogueMessage]) {
@@ -290,7 +294,7 @@ public class GameManager : MonoBehaviour
                 AdvanceDialogue();
                 break;
                 case "-journalEntries6":
-                journalEntries.AddEntry("-<Radish's parents are... whoever can conceive a non-binary child.\n", "right");
+                journalEntries.AddEntry("-Radish's parents are... whoever can conceive a non-binary child.\n", "right");
                 AdvanceDialogue();
                 break;
                 case "-restart game":

@@ -28,6 +28,7 @@ public class UsableEntity : MonoBehaviour
     public List<string> inventoryEmptyDialogue;
 
     private bool playerInZone;
+
     void OnTriggerEnter(Collider col) {
         if(col.gameObject.CompareTag("Player")) {
             playerInZone = true;
@@ -74,7 +75,7 @@ public class UsableEntity : MonoBehaviour
         } else if (currentBaby.babyName == "Radish") {
             GameManager.gameManagerObj.GetComponent<GameManager>().babyRadishScore.parentName = parentName;
             GameManager.gameManagerObj.GetComponent<GameManager>().babyRadishScore.UpdateScore();
-        } else
+        }
 
 
         // check empty journal entry
@@ -137,19 +138,25 @@ public class UsableEntity : MonoBehaviour
             playerInZone = false;
             transform.GetChild(0).gameObject.SetActive(false);
         }
-        if(playerInZone && GameManager.playerController.inDialogue == true) {
+
+
+        if (playerInZone == false || GameManager.playerController.inDialogueCountdown > 0.1f || GameManager.playerController.inDialogue == true) {
+            return;
+        }
+
+        if (GameManager.playerController.inDialogue == true) {
             GameManager.useTutorial.SetActive(false);
             GameManager.takeBabyTutorial.SetActive(false);
-        } else if(playerInZone && GameManager.playerController.inDialogue == false) {
+        } else if (GameManager.playerController.inDialogue == false) {
             GameManager.useTutorial.SetActive(true);
             if(currentBaby != null) {
                 GameManager.takeBabyTutorial.SetActive(true);
             }
         }
         // check input
-        if (playerInZone == true && GameManager.playerController.inDialogue == false
+        if (GameManager.playerController.inDialogue == false
             && GameManager.babyExchangeMenu.activeSelf == false) {
-            if(Input.GetButtonDown("Use")) {
+            if (Input.GetButtonDown("Use")) {
                 CreateDialogue();
             } else if(Input.GetButtonDown("TakeBaby") && currentBaby != null && currentBaby.babyName != "Blank") {
                 PlayerTakeBaby();
@@ -162,7 +169,7 @@ public class UsableEntity : MonoBehaviour
         GameManager.playerController.inDialogueCountdown = 1f;
         GameManager.dialogueText.color = dialogueColor;
 
-        if(advanceDialogueIfInventoryEmpty == true && GameManager.gameManagerObj.GetComponent<GameManager>().babyInventory.Count == 0) {
+        if (advanceDialogueIfInventoryEmpty == true && GameManager.gameManagerObj.GetComponent<GameManager>().babyInventory.Count == 0) {
             GameManager.gameManagerObj.GetComponent<GameManager>().CreateDialogue(inventoryEmptyDialogue, gameObject);
             //playerInZone = false; // to reset usable entity
             return;
