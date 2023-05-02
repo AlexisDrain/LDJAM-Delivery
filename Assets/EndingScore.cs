@@ -15,10 +15,35 @@ public class EndingScore : MonoBehaviour
     public string babyName;
     public string parentName;
 
-    void Start() {
+    public bool happyColette = false;
+    public bool happyNicky = false;
+    public bool happyBoyOne = false;
+    public bool happyLush = false;
+    public bool happyJacob = false;
+    public bool happyRadish = false;
 
+    public NGHelper ngHelper;
+
+    public void UnlockMedals() {
+        if (happyColette) {
+            ngHelper.UnlockMedalColette();
+        }
+        if (happyNicky) {
+            ngHelper.UnlockMedalNicky();
+        }
+        if (happyBoyOne) {
+            ngHelper.UnlockMedalBoyOne();
+        }
+        if (happyLush) {
+            ngHelper.UnlockMedalLush();
+        }
+        if (happyJacob) {
+            ngHelper.UnlockMedalJacob();
+        }
+        if (happyRadish) {
+            ngHelper.UnlockMedalRadish();
+        }
     }
-
     public void UpdateScore() {
         if (parentName == "Hobo") {
             endingImage.color = colorBad;
@@ -32,11 +57,13 @@ public class EndingScore : MonoBehaviour
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "Colette is happy with their real parents!";
+                happyColette = true;
                 return;
             } else if (parentName == "Nicky Parents") {
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "While not with their real parents, Colette is still happy!";
+                happyColette = true;
                 return;
             } else {
                 endingImage.color = colorBad;
@@ -51,11 +78,13 @@ public class EndingScore : MonoBehaviour
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "Husband left because the wife cheated. But at least Nicky is with their real mother.";
+                happyNicky = true;
                 return;
             } else if (parentName == "Colette Parents") {
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "While not with their real parents, Nicky is still happy!";
+                happyNicky = true;
                 return;
             } else {
                 endingImage.color = colorBad;
@@ -70,6 +99,7 @@ public class EndingScore : MonoBehaviour
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "Boy One is with their real parents!";
+                happyBoyOne = true;
                 return;
             } else {
                 endingImage.color = colorBad;
@@ -84,6 +114,7 @@ public class EndingScore : MonoBehaviour
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "Lush is with their real parents!";
+                happyLush = true;
                 return;
             } else {
                 endingImage.color = colorBad;
@@ -98,11 +129,13 @@ public class EndingScore : MonoBehaviour
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "You chose to give Jacob to the Ex-wife. I hope that was the right option.";
+                happyJacob = true;
                 return;
             } else if (parentName == "Jacob Husband") {
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "You chose to give Jacob to the Ex-husband. I hope that was the right option.";
+                happyJacob = true;
                 return;
             } else {
                 endingImage.color = colorBad;
@@ -117,6 +150,7 @@ public class EndingScore : MonoBehaviour
                 endingImage.color = Color.white;
                 endingText.color = Color.green;
                 endingText.text = "Radish is with the trio parents. Their real parents.";
+                happyRadish = true;
                 return;
             } else {
                 endingImage.color = colorBad;

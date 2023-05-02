@@ -3,3 +3,5 @@ Project settings > player > Publishing settings > Compression Format must be DIS
 
 LD-Page needs:
 Project settings > player > Publishing settings > Data Caching must be OFF
+
+NGMedals was made in a hurry for Newgrounds. might have some bugs? Both of the previous options are ignored. (compressed and data caching TRUE).

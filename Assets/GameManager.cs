@@ -103,10 +103,20 @@ public class GameManager : MonoBehaviour
         freeLookCam.enabled = true;
     }
     public void FinishGame() {
+        
         transform.Find("Music").GetComponent<AudioSource>().PlayWebGL(creditsMusic);
         babyEnding.SetActive(true);
+
         freeLookCam.enabled = false;
         gameProgressCheckpoint = 0;
+
+        // ng medals
+        babyColetteScore.UnlockMedals();
+        babyNickyScore.UnlockMedals();
+        babyBoyoneScore.UnlockMedals();
+        babyRadishScore.UnlockMedals();
+        babyLushScore.UnlockMedals();
+        babyJacobScore.UnlockMedals();
     }
     public void RestartGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
