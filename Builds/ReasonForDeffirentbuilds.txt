@@ -1,0 +1,5 @@
+Itch page needs:
+Project settings > player > Publishing settings > Compression Format must be DISABLED
+
+LD-Page needs:
+Project settings > player > Publishing settings > Data Caching must be OFF
